@@ -22,18 +22,18 @@ namespace SFUListParser.Scripts
 
             int priorityPosition = 0;
             List<Student> students = new List<Student>();
-            foreach (IElement table in angle.QuerySelectorAll("tr").ToList().Skip(13))
+            foreach (IElement table in angle.QuerySelectorAll("tr").ToList().Skip(9))
             {
                 var currentStudent = table.QuerySelectorAll("td");
 
-                if (currentStudent[16].TextContent.Contains("1"))
+                if (!string.IsNullOrEmpty(currentStudent[17].TextContent))
                     priorityPosition++;
                 try
                 {
                     students.Add(new Student()
                     {
                         Position = int.Parse(currentStudent[0].TextContent),
-                        PriorityPosition = currentStudent[16].TextContent.Contains("1") ? priorityPosition : 0,
+                        PriorityPosition = /*currentStudent[16].TextContent.Contains("1") ? priorityPosition : 0*/ !string.IsNullOrEmpty(currentStudent[17].TextContent) ? priorityPosition : 0,
                         ID = currentStudent[1].TextContent,
                         AdditionalPoints = int.Parse(currentStudent[8].TextContent),
                         TotalPoints = int.Parse(currentStudent[7].TextContent),
