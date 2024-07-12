@@ -1,6 +1,6 @@
-﻿using SFUListParser.ViewModel;
+﻿using SFUListParser.Pages;
+using SFUListParser.ViewModel;
 using System.Linq;
-using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -8,14 +8,13 @@ namespace SFUListParser
 {
     public sealed partial class MainPage : Page
     {
-        private MainWindowViewModel mainWindowViewModel;
+        private CompetitionListDataViewModel CompetitionListDataVM;
 
         public MainPage()
         {
             InitializeComponent();
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-            mainWindowViewModel = new MainWindowViewModel();
+            CompetitionListDataVM = new CompetitionListDataViewModel();
         }
 
         private void MainGridView_ItemClick(object sender, ItemClickEventArgs e)
@@ -26,9 +25,10 @@ namespace SFUListParser
                    { Effect = SlideNavigationTransitionEffect.FromBottom });
         }
 
-        private void Button_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            mainWindowViewModel.CompetitionListDatas.Remove(mainWindowViewModel.CompetitionListDatas.Last());
-        }
+        private void AddButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e) =>
+            Frame.Navigate(typeof(CompetitionListDataEditPage));
+
+        private void DeleteButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e) =>
+            CompetitionListDataVM.CompetitionLists.Remove(CompetitionListDataVM.CompetitionLists.Last());
     }
 }

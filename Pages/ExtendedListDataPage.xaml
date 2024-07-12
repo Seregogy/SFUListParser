@@ -25,8 +25,9 @@
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind competitionListData.Description}"/>
                     </StackPanel>
                 </Grid>
+                
+                <StackPanel CornerRadius="{StaticResource ControlCornerRadius}" Grid.Row="1" Background="{StaticResource CardBackgroundFillColorSecondaryBrush}" Padding="16" Spacing="50" Orientation="Horizontal">
 
-                <StackPanel Padding="16" Spacing="50" Orientation="Horizontal" CornerRadius="{StaticResource ControlCornerRadius}" Grid.Row="1" Background="{StaticResource CardBackgroundFillColorSecondaryBrush}">
                     <StackPanel Spacing="5">
                         <RichTextBlock>
                             <Paragraph>
@@ -36,38 +37,42 @@
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Место в списке" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.Position, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.Position, Mode=OneWay}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Место (приоритет)" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.PriorityPosition, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.PriorityPosition, Mode=OneWay}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.TotalPoints, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.TotalPoints, Mode=OneWay}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Доп. Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.AdditionalPoints, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.AdditionalPoints, Mode=OneWay}"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Spacing="5">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Приоритет" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.Prioriry, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.Prioriry, Mode=OneWay}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Высший приоритет" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                                <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.IsHighestPriority, Mode=OneWay}"/>
+                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.IsHighestPriority, Mode=OneWay}"/>
                         </StackPanel>
                     </StackPanel>
-
+                    
                 </StackPanel>
+                
+                <Button Margin="5" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="DeleteButtonClicked">
+                    <FontIcon Glyph="&#xE74D;" Foreground="{StaticResource SystemFillColorCriticalBrush}"/>
+                </Button>
             </Grid>
 
             <muxc:Expander CornerRadius="{StaticResource OverlayCornerRadius}" Header="Parsing history" HorizontalAlignment="Center" Width="1000">
@@ -167,44 +172,6 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <!--<ListView.Items>
-                        <SFUParserModel:Student Position="59"
-                                                PriorityPosition="11"
-                                                ID="159-857-355 35"
-                                                AdditionalPoints="0"
-                                                TotalPoints="255"
-                                                Prioriry="1"
-                                                IsHighestPriority="True"/>
-                        <SFUParserModel:Student Position="59"
-                                                PriorityPosition="11"
-                                                ID="159-857-355 35"
-                                                AdditionalPoints="0"
-                                                TotalPoints="255"
-                                                Prioriry="1"
-                                                IsHighestPriority="True"/>
-                        <SFUParserModel:Student Position="59"
-                                                PriorityPosition="11"
-                                                ID="159-857-355 35"
-                                                AdditionalPoints="0"
-                                                TotalPoints="255"
-                                                Prioriry="1"
-                                                IsHighestPriority="True"/>
-                        <SFUParserModel:Student Position="59"
-                                                PriorityPosition="11"
-                                                ID="159-857-355 35"
-                                                AdditionalPoints="0"
-                                                TotalPoints="255"
-                                                Prioriry="1"
-                                                IsHighestPriority="True"/>
-                        <SFUParserModel:Student Position="59"
-                                                PriorityPosition="11"
-                                                ID="159-857-355 35"
-                                                AdditionalPoints="0"
-                                                TotalPoints="255"
-                                                Prioriry="1"
-                                                IsHighestPriority="True"/>
-                    </ListView.Items>-->
                 </ListView>
             </StackPanel>
         </StackPanel>

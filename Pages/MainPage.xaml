@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="SFUListParser.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SFUListParser"
+    xmlns:cld="using:SFUListParser.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:mucx="using:Microsoft.UI.Xaml.Controls"
+    mucx:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" MaxWidth="1700" x:Name="RootElement">
+            <StackPanel Orientation="Horizontal" Spacing="15">
+                <TextBlock x:Name="MainLabel" VerticalAlignment="Center" Style="{StaticResource TitleLargeTextBlockStyle}" Text="Конкурсные списки" Margin="36 40 0 36"/>
+
+                <Button VerticalAlignment="Center" Click="AddButtonClicked">
+                    <FontIcon Glyph="&#xE710;" FontSize="26" VerticalAlignment="Center"/>
+                </Button>
+                
+                <Button VerticalAlignment="Center" Click="DeleteButtonClicked">
+                    <FontIcon Glyph="&#xE73C;" FontSize="26" VerticalAlignment="Center"/>
+                </Button>
+            </StackPanel>
+
+            <GridView x:Name="MainGridView" SelectionMode="None" Margin="36 0" IsItemClickEnabled="True" ItemClick="MainGridView_ItemClick" ItemsSource="{x:Bind CompetitionListDataVM.CompetitionLists, Mode=OneWay}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="cld:CompetitionListData">
+                        <Grid x:Name="CardMainGrid" Width="300"  CornerRadius="8" Height="180" Background="{StaticResource CardBackgroundFillColorDefaultBrush}" BorderThickness="1" BorderBrush="{StaticResource ControlElevationBorderBrush}">
+                            <TextBlock Margin="0 -20" Opacity="0.02" FontSize="70" FontWeight="Bold" Text="{x:Bind Name}"/>
+                            <StackPanel Padding="16 10" Spacing="8" >
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Name}"/>
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Description}" ToolTipService.ToolTip="{x:Bind Description}" MaxLines="1"/>
+                                <NavigationViewItemSeparator Margin="-25 0 -25 0"/>
+
+                                <RichTextBlock>
+                                    <Paragraph>
+                                        <Hyperlink UnderlineStyle="None" NavigateUri="{x:Bind Link}">Cписок</Hyperlink>
+                                    </Paragraph>
+                                </RichTextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </StackPanel>
+    </Grid>
+</Page>

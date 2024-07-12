@@ -1,5 +1,6 @@
 ﻿using SFUListParser.Model;
 using SFUListParser.ViewModel;
+using System;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -42,6 +43,26 @@ namespace SFUListParser
         {            
             if (e.GetCurrentPoint(Frame).Properties.IsXButton1Pressed)
                 Frame.GoBack();
+        }
+
+        private async void DeleteButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ContentDialog contentDialog = new ContentDialog()
+            {
+                Name = "Подтвердить действие?",
+                Title = "Удалить список",
+                PrimaryButtonText = "Да",
+                SecondaryButtonText = "Отменить"
+            };
+
+            var result = await contentDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                new CompetitionListDataViewModel().CompetitionLists.Remove(competitionListData);
+
+                Frame.Navigate(typeof(MainPage));
+            }
         }
     }
 }

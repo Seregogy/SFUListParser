@@ -119,19 +119,26 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExtendedListDataPage.xaml.cs">
+    <Compile Include="Components\CompetitionListDataComponent.xaml.cs">
+      <DependentUpon>CompetitionListDataComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CompetitionListDataEditPage.xaml.cs">
+      <DependentUpon>CompetitionListDataEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExtendedListDataPage.xaml.cs">
       <DependentUpon>ExtendedListDataPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CompetitionListData.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\SaveDataHandler.cs" />
     <Compile Include="Scripts\SFUHtmlListParser.cs" />
+    <Compile Include="ViewModel\CompetitionListDataViewModel.cs" />
     <Compile Include="ViewModel\ExtendedListDataViewModel.cs" />
     <Compile Include="ViewModel\StudentViewModel.cs" />
-    <Compile Include="ViewModel\MainWindowViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -155,11 +162,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ExtendedListDataPage.xaml">
+    <Page Include="Components\CompetitionListDataComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\CompetitionListDataEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExtendedListDataPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -174,9 +189,13 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.6</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Components\" />
+    <None Include="Assets\Config.json" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
