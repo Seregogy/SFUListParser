@@ -1,0 +1,107 @@
+﻿<Page
+    x:Class="SFUListParser.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SFUListParser"
+    xmlns:cld="using:SFUListParser.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:mucx="using:Microsoft.UI.Xaml.Controls"
+    mucx:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    NavigationCacheMode="Enabled">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" MaxWidth="1700" x:Name="RootElement">
+            <TextBlock x:Name="MainLabel" Style="{StaticResource TitleLargeTextBlockStyle}" Margin="36 40 36 36">Конкурсные списки</TextBlock>
+            <Button Visibility="Collapsed" HorizontalAlignment="Center" Margin="0 0 0 20" Content="Изменить последний элемент" Click="Button_Click"/>
+
+            <GridView x:Name="MainGridView" SelectionMode="None" Margin="36 0" IsItemClickEnabled="True" ItemClick="MainGridView_ItemClick" ItemsSource="{x:Bind mainWindowViewModel.CompetitionListDatas}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="cld:CompetitionListData">
+                        <Grid x:Name="CardMainGrid" Width="300"  CornerRadius="8" Height="180" Background="{StaticResource CardBackgroundFillColorDefaultBrush}" BorderThickness="1" BorderBrush="{StaticResource ControlElevationBorderBrush}">
+                            
+                            
+                            <TextBlock Margin="0 -20" Opacity="0.02" FontSize="70" FontWeight="Bold" Text="{x:Bind Name}"/>
+                            <StackPanel Padding="16 10" Spacing="8" >
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Name}"/>
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Description}" ToolTipService.ToolTip="{x:Bind Description}" MaxLines="1"/>
+                                <NavigationViewItemSeparator Margin="-25 0 -25 0"/>
+
+                                <RichTextBlock>
+                                    <Paragraph>
+                                        <Hyperlink UnderlineStyle="None" NavigateUri="{x:Bind Link}">Cписок</Hyperlink>
+                                    </Paragraph>
+                                </RichTextBlock>
+
+                                <!--<StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Место в списке" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                                    <TextBlock Margin="15 0 0 0" Text="{x:Bind Position}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Место (приоритет)" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                                    <TextBlock Margin="15 0 0 0" Text="{x:Bind PriorityPosition}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                                    <TextBlock Margin="15 0 0 0" Text="{x:Bind TotalPoints}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Доп. Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                                    <TextBlock Margin="15 0 0 0" Text="{x:Bind AdditionalPoints}"/>
+                                </StackPanel>-->
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+
+                <GridView.Items>
+                    <!--<cld:CompetitionListData Name="ФИиИТ" 
+                                Description="Фундаментальная информатика и информационные технологии" 
+                                Link="https://sfedu.ru/abitur/list/02.03.02_%D0%9C%D0%9C_%D0%A4%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B8%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8.%20%D0%A4%D1%83%D0%BD%D0%B4%D0%B0%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B8%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8_%D0%9E%D0%9E_%D0%93%D0%91" 
+                                Snils="159-857-355 35"
+                                Position="59"
+                                TotalPoints="255"
+                                PriorityPosition="11"
+                                AdditionalPoints="0"
+                                Prioriry="1"
+                                IsHighestPriority="True"/>
+
+                    <cld:CompetitionListData Name="ПМиИ" 
+                                Description="Прикладная информатика и информационные технологии" 
+                                Link="https://sfedu.ru/abitur/list/01.03.02_%D0%9C%D0%9C_%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F%20%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0%20%D0%B8%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0.%20%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B5%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%B8%20%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D0%BB%D0%BB%D0%B5%D0%BA%D1%82_%D0%9E%D0%9E_%D0%93%D0%91" 
+                                Snils="159-857-355 35"
+                                Position="67"
+                                TotalPoints="255"
+                                PriorityPosition="12"
+                                AdditionalPoints="0"/>
+
+                                <cld:CompetitionListData Name="ПИ" 
+                                                            Description="Прикладная информатика" 
+                                                            Link="https://sfedu.ru/abitur/list/09.03.03_%D0%92%D0%A2_%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%BA%D0%B0.%20%D0%A1%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B9_%D0%9E%D0%9E_%D0%93%D0%91" 
+                                                            Snils="159-857-355 35"
+                                                            Position="48"
+                                                            TotalPoints="260"
+                                                            PriorityPosition="8"
+                                                            AdditionalPoints="5"/>-->
+                </GridView.Items>
+            </GridView>
+
+        </StackPanel>
+
+        <!--<CommandBar>
+            <CommandBar.Content>
+                <Button x:Name="BackButton"
+                            Style="{StaticResource NavigationBackButtonNormalStyle}"
+                            IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}" 
+                            ToolTipService.ToolTip="Back" 
+                            VerticalAlignment="Top"/>
+
+            </CommandBar.Content>
+        </CommandBar>-->
+    </Grid>
+    
+</Page>
