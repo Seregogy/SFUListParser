@@ -21,9 +21,15 @@ namespace SFUListParser.Scripts
             IHtmlDocument angle = new HtmlParser().ParseDocument(html);
 
             int priorityPosition = 0;
+            int parsedCount = 0;
             List<Student> students = new List<Student>();
-            foreach (IElement table in angle.QuerySelectorAll("tr").ToList().Skip(9))
+            foreach (IElement table in angle.QuerySelectorAll("tr").ToList().Skip(13))
             {
+                if (parsedCount >= ConfigHandler.ParseListLimit)
+                    break;
+
+                parsedCount++;
+
                 var currentStudent = table.QuerySelectorAll("td");
 
                 Debug.WriteLine((currentStudent[0].TextContent, currentStudent[1].TextContent));

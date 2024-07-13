@@ -12,7 +12,7 @@
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22621.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.22621.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -122,6 +122,7 @@
     <Compile Include="Components\CompetitionListDataComponent.xaml.cs">
       <DependentUpon>CompetitionListDataComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ExtendedPageDataModel.cs" />
     <Compile Include="Pages\CompetitionListDataEditPage.xaml.cs">
       <DependentUpon>CompetitionListDataEditPage.xaml</DependentUpon>
     </Compile>
@@ -134,9 +135,11 @@
     <Compile Include="Model\CompetitionListData.cs" />
     <Compile Include="Model\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\ConfigHandler.cs" />
     <Compile Include="Scripts\SaveDataHandler.cs" />
-    <Compile Include="Scripts\SFUHtmlListParser.cs" />
+    <Compile Include="Scripts\Parsers\SFUHtmlListParser.cs" />
     <Compile Include="ViewModel\CompetitionListDataViewModel.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\ExtendedListDataViewModel.cs" />
     <Compile Include="ViewModel\StudentViewModel.cs" />
   </ItemGroup>
@@ -185,6 +188,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.6</Version>

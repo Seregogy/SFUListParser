@@ -1,6 +1,7 @@
 ﻿using SFUListParser.Model;
 using SFUListParser.Scripts;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,25 +11,29 @@ namespace SFUListParser.ViewModel
 {
     internal class ExtendedListDataViewModel : INotifyPropertyChanged
     {
-        private CompetitionListData competitionListData;
+        private static ExtendedListDataViewModel instance;
+        private CompetitionListData currentListData;
 
-        private List<Student> students;
-        private Student selectedStudent = new Student();
-        public List<Student> Students { get => students; set { students = value; OnPropertyChanged("Students"); } }
-        public Student SelectedStudent { get => selectedStudent; set { selectedStudent = value; OnPropertyChanged("SelectedStudent"); } }
+        private Student selectedStudent;
+        private ObservableCollection<Student> students;
+        public Student SelectedStudent { get => selectedStudent; set { selectedStudent = value; OnPropertyChanged(); } }
+        public ObservableCollection<Student> Students { get => students; set => students = value; }
 
-        public ExtendedListDataViewModel(CompetitionListData competitionListData)
+        public static ExtendedListDataViewModel Init(CompetitionListData competitionListData)
         {
-            this.competitionListData = competitionListData;
+            if (instance == null)
+                instance = new ExtendedListDataViewModel();
 
-            _ = UpdateStudentsDataAsync();
+            instance.currentListData = competitionListData;
+
+            return instance;
         }
 
-        public async Task UpdateStudentsDataAsync()
+        public async Task ParseTableAsync()
         {
-            Students = await SFUHtmlListParser.ParseTableAsync(competitionListData.Link);
-            
-            SelectedStudent = Students.Where(x => x.ID == competitionListData.Id).FirstOrDefault();
+            Students = new ObservableCollection<Student>(await SFUHtmlListParser.ParseTableAsync(currentListData.Link));
+
+            SelectedStudent = Students.Where(x => x.ID == currentListData.Id).LastOrDefault();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

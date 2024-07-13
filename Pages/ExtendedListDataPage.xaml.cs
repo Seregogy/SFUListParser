@@ -19,7 +19,7 @@ namespace SFUListParser
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
@@ -27,7 +27,9 @@ namespace SFUListParser
             Content.PointerPressed += Page_PointerPressed;
 
             competitionListData = e.Parameter as CompetitionListData;
-            extendedListDataViewModel = new ExtendedListDataViewModel(competitionListData);
+
+            extendedListDataViewModel = ExtendedListDataViewModel.Init(competitionListData);
+            await extendedListDataViewModel.ParseTableAsync();
         }
         
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
@@ -59,7 +61,7 @@ namespace SFUListParser
 
             if (result == ContentDialogResult.Primary)
             {
-                CompetitionListDataViewModel.Init().CompetitionLists.Remove(competitionListData);
+                MainPageViewModel.Init().CompetitionLists.Remove(competitionListData);
 
                 Frame.Navigate(typeof(MainPage));
             }

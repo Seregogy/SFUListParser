@@ -64,7 +64,7 @@
 
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Высший приоритет" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.IsHighestPriority, Mode=OneWay}"/>
+                            <TextBlock x:Name="IsHighestPriorityText" Margin="15 0 0 0" Text="{x:Bind extendedListDataViewModel.SelectedStudent.IsHighestPriority, Mode=OneWay}"/>
                         </StackPanel>
                     </StackPanel>
                     
@@ -76,10 +76,9 @@
             </Grid>
 
             <muxc:Expander CornerRadius="{StaticResource OverlayCornerRadius}" Header="Parsing history" HorizontalAlignment="Center" Width="1000">
-            <Grid>
-                <TextBlock Text="Скоро будет" Style="{StaticResource DisplayTextBlockStyle}"/>
-            </Grid>
-        </muxc:Expander>
+                <StackPanel>
+                </StackPanel>
+            </muxc:Expander>
 
             <StackPanel Spacing="15" CornerRadius="{StaticResource OverlayCornerRadius}" Padding="15" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
                 <Grid Height="40">
@@ -129,7 +128,7 @@
                     </StackPanel>
                 </Grid>
 
-                <ListView SelectedIndex="{x:Bind extendedListDataViewModel.SelectedStudent.PositionIndex, Mode=OneWay}" x:Name="StudentsListView" Padding="0" ItemsSource="{x:Bind extendedListDataViewModel.Students, Mode=OneWay}">
+                <ListView x:Name="StudentsListView" ItemsSource="{x:Bind extendedListDataViewModel.Students, Mode=OneWay}" SelectedIndex="{x:Bind extendedListDataViewModel.SelectedStudent.PositionIndex, Mode=OneWay}" Padding="0">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="SFUParserModel:Student">
                             <Grid Height="35" CornerRadius="{StaticResource ControlCornerRadius}">

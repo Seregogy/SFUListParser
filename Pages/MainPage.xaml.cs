@@ -9,13 +9,13 @@ namespace SFUListParser
 {
     public sealed partial class MainPage : Page
     {
-        private CompetitionListDataViewModel CompetitionListDataVM;
+        private MainPageViewModel CompetitionListDataVM;
 
         public MainPage()
         {
             InitializeComponent();
             
-            CompetitionListDataVM = CompetitionListDataViewModel.Init();\
+            CompetitionListDataVM = MainPageViewModel.Init();
         }
 
         private void MainGridView_ItemClick(object sender, ItemClickEventArgs e)
