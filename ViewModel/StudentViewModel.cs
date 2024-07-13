@@ -12,7 +12,7 @@ namespace SFUListParser.ViewModel
 
         public StudentViewModel(Student competitionListData)
         {
-            this.student = competitionListData;
+            student = competitionListData;
 
             competitionListData.PropertyChanged += (sender, e) => PropertyChanged?.Invoke(sender, e);
         }

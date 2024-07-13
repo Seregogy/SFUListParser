@@ -59,7 +59,7 @@ namespace SFUListParser
 
             if (result == ContentDialogResult.Primary)
             {
-                new CompetitionListDataViewModel().CompetitionLists.Remove(competitionListData);
+                CompetitionListDataViewModel.Init().CompetitionLists.Remove(competitionListData);
 
                 Frame.Navigate(typeof(MainPage));
             }

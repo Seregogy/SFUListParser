@@ -1,5 +1,6 @@
 ﻿using SFUListParser.Pages;
 using SFUListParser.ViewModel;
+using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -13,8 +14,8 @@ namespace SFUListParser
         public MainPage()
         {
             InitializeComponent();
-
-            CompetitionListDataVM = new CompetitionListDataViewModel();
+            
+            CompetitionListDataVM = CompetitionListDataViewModel.Init();\
         }
 
         private void MainGridView_ItemClick(object sender, ItemClickEventArgs e)

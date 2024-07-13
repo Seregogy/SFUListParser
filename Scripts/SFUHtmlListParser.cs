@@ -4,7 +4,7 @@ using AngleSharp.Html.Parser;
 using SFUListParser.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,25 +26,21 @@ namespace SFUListParser.Scripts
             {
                 var currentStudent = table.QuerySelectorAll("td");
 
+                Debug.WriteLine((currentStudent[0].TextContent, currentStudent[1].TextContent));
+                
                 if (!string.IsNullOrEmpty(currentStudent[17].TextContent))
                     priorityPosition++;
-                try
+                
+                students.Add(new Student()
                 {
-                    students.Add(new Student()
-                    {
-                        Position = int.Parse(currentStudent[0].TextContent),
-                        PriorityPosition = /*currentStudent[16].TextContent.Contains("1") ? priorityPosition : 0*/ !string.IsNullOrEmpty(currentStudent[17].TextContent) ? priorityPosition : 0,
-                        ID = currentStudent[1].TextContent,
-                        AdditionalPoints = int.Parse(currentStudent[8].TextContent),
-                        TotalPoints = int.Parse(currentStudent[7].TextContent),
-                        Prioriry = int.Parse(currentStudent[2].TextContent),
-                        IsHighestPriority = currentStudent[16].TextContent.Contains("1") ? true : false
-                    });
-                }
-                catch
-                {
-                    continue;
-                }
+                    Position = int.Parse(currentStudent[0].TextContent),
+                    PriorityPosition = !string.IsNullOrEmpty(currentStudent[17].TextContent) ? priorityPosition : 0,
+                    ID = currentStudent[1].TextContent,
+                    AdditionalPoints = int.Parse(currentStudent[8].TextContent),
+                    TotalPoints = int.Parse(currentStudent[7].TextContent),
+                    Prioriry = int.Parse(currentStudent[2].TextContent),
+                    IsHighestPriority = currentStudent[16].TextContent.Contains("1") ? true : false
+                });
             }
 
             return students;

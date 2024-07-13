@@ -13,7 +13,7 @@ namespace SFUListParser.Pages
         {
             InitializeComponent();
 
-            CompetitionListDataVM = new CompetitionListDataViewModel();
+            CompetitionListDataVM = CompetitionListDataViewModel.Init();
         }
 
         private void DeleteButtonClicked(object sender, RoutedEventArgs e)

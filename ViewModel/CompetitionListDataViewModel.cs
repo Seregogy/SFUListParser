@@ -9,11 +9,21 @@ namespace SFUListParser.ViewModel
 {
     internal class CompetitionListDataViewModel
     {
+        private static CompetitionListDataViewModel instance;
+
         public ObservableCollection<CompetitionListData> CompetitionLists { get; set; }
 
         private SaveDataHandler saveDataHandler;
 
-        public CompetitionListDataViewModel()
+        public static CompetitionListDataViewModel Init()
+        {
+            if (instance == null)
+                instance = new CompetitionListDataViewModel();
+
+            return instance;
+        }
+
+        private CompetitionListDataViewModel()
         {
             saveDataHandler = SaveDataHandler.Init();
             LoadCompetitionLists();

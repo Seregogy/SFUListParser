@@ -23,7 +23,16 @@ namespace SFUListParser.Scripts
         public void ClearData() =>
             File.WriteAllText(path, string.Empty);
 
-        public string LoadData() =>
-            File.ReadAllText(path);
+        public string LoadData()
+        {
+            if (!File.Exists(path))
+            {
+                File.CreateText(path).Close();
+                File.WriteAllText(path, "[]");
+            }
+
+
+            return File.ReadAllText(path);
+        }
     }
 }
