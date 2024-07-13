@@ -17,7 +17,7 @@ namespace SFUListParser.ViewModel
         private Student selectedStudent;
         private ObservableCollection<Student> students;
         public Student SelectedStudent { get => selectedStudent; set { selectedStudent = value; OnPropertyChanged(); } }
-        public ObservableCollection<Student> Students { get => students; set => students = value; }
+        public ObservableCollection<Student> Students { get => students; set { students = value; OnPropertyChanged(); } }
 
         public static ExtendedListDataViewModel Init(CompetitionListData competitionListData)
         {
