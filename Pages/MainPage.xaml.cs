@@ -30,7 +30,8 @@ namespace SFUListParser
             Frame.Navigate(typeof(ExtendedListDataPage),
                    e.ClickedItem,
                    new SlideNavigationTransitionInfo()
-                   { Effect = SlideNavigationTransitionEffect.FromBottom });
+                   { Effect = SlideNavigationTransitionEffect.FromBottom }
+            );
         }
 
         private void AddButtonClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e) =>

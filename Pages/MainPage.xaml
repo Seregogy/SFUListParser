@@ -26,8 +26,14 @@
                         <Grid x:Name="CardMainGrid" Width="300" CornerRadius="{StaticResource OverlayCornerRadius}" Height="180" Background="{StaticResource CardBackgroundFillColorDefaultBrush}" BorderThickness="1" BorderBrush="{StaticResource ControlElevationBorderBrush}">
                             <TextBlock Margin="0 -20" Opacity="0.02" FontSize="70" FontWeight="Bold" Text="{x:Bind Name}"/>
                             <StackPanel Padding="16 10" Spacing="8" >
-                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Name}"/>
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Description}" ToolTipService.ToolTip="{x:Bind Description}" MaxLines="1"/>
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" 
+                                           Text="{x:Bind Name}"/>
+                                
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" 
+                                           Text="{x:Bind Description}" 
+                                           ToolTipService.ToolTip="{x:Bind Description}" 
+                                           MaxLines="1"/>
+                                
                                 <NavigationViewItemSeparator Margin="-25 0 -25 0"/>
 
                                 <RichTextBlock>

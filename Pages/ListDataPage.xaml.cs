@@ -1,26 +1,30 @@
-﻿using Microsoft.Toolkit.Uwp;
-using SFUListParser.Model;
+﻿using SFUListParser.Model;
 using SFUListParser.Scripts;
 using SFUListParser.ViewModel;
 using System;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Windows.Networking.NetworkOperators;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace SFUListParser
-{
-    public sealed partial class ExtendedListDataPage : Page
-    {
-        private ObservableCollection<Student> students = new ObservableCollection<Student>();
 
+namespace SFUListParser.Pages
+{
+    public sealed partial class ListDataPage : Page, INotifyPropertyChanged
+    {
         private CompetitionListData competitionListData { get; set; }
         private ExtendedListDataViewModel extendedListDataViewModel { get; set; }
 
-        public ExtendedListDataPage()
+        private bool isParsed;
+
+        private IEnumerator<Student> iterativeParse;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ListDataPage()
         {
             InitializeComponent();
 
@@ -36,21 +40,18 @@ namespace SFUListParser
 
             competitionListData = e.Parameter as CompetitionListData;
 
-            extendedListDataViewModel = ExtendedListDataViewModel.Init(competitionListData);
+            //extendedListDataViewModel = ExtendedListDataViewModel.Init(competitionListData);
             //await extendedListDataViewModel.ParseTableAsync();
 
-            //var students = new IncrementalLoadingCollection<StudentSource, Student>(10);
-            //StudentsListView.ItemsSource = students;
 
-            Task.Run(async () =>
+            _ = Dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
             {
-                var result = await SFUHtmlListParser.ParseTableAsync(competitionListData.Link);
+                iterativeParse = SFUHtmlListParser.ParseTableIterative(competitionListData.Link);
 
-                _ = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                while (iterativeParse.MoveNext())
                 {
-                    foreach (var item in result)
-                        students.Add(item);
-                });
+                    CompetitionList.Items.Add(iterativeParse.Current);
+                }
             });
         }
 

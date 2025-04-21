@@ -16,9 +16,7 @@
                     <RowDefinition Height="120"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-            
-                <Image VerticalAlignment="Top" Opacity="0.05" HorizontalAlignment="Right" Width="250" Margin="-50 -110 " Source="..\Assets\logo-sfedu-white.png"/>
-
+                
                 <Grid>
                     <StackPanel Grid.Row="0">
                         <TextBlock x:Name="MainLabel" FontSize="60" Margin="0 -10 0 0" FontWeight="Bold" Text="{x:Bind competitionListData.Name}"/>
@@ -128,7 +126,11 @@
                     </StackPanel>
                 </Grid>
 
-                <ListView x:Name="StudentsListView" ItemsSource="{x:Bind extendedListDataViewModel.Students, Mode=OneWay}" SelectedIndex="{x:Bind extendedListDataViewModel.SelectedStudent.PositionIndex, Mode=OneWay}" Padding="0">
+                <ListView x:Name="StudentsListView" 
+                          ItemsSource="{x:Bind students, Mode=OneWay}"
+                          SelectedIndex="{x:Bind extendedListDataViewModel.SelectedStudent.PositionIndex, Mode=OneWay}" 
+                          Padding="0">
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="SFUParserModel:Student">
                             <Grid Height="35" CornerRadius="{StaticResource ControlCornerRadius}">
@@ -171,6 +173,7 @@
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    
                 </ListView>
             </StackPanel>
         </StackPanel>
