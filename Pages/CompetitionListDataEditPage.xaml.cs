@@ -21,7 +21,7 @@ namespace SFUListParser.Pages
         private void DeleteButtonClicked(object sender, RoutedEventArgs e)
         {
             CompetitionListDataVM.CompetitionLists.Add(currentCompetitionList);
-        
+
             Frame.Navigate(typeof(MainPage));
         }
     }

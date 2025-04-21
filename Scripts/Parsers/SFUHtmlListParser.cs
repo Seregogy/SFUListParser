@@ -33,14 +33,16 @@ namespace SFUListParser.Scripts
                 var currentStudent = table.QuerySelectorAll("td");
 
                 Debug.WriteLine((currentStudent[0].TextContent, currentStudent[1].TextContent));
-                
+
                 if (!string.IsNullOrEmpty(currentStudent[17].TextContent))
                     priorityPosition++;
-                
+
                 students.Add(new Student()
                 {
                     Position = int.Parse(currentStudent[0].TextContent),
-                    PriorityPosition = !string.IsNullOrEmpty(currentStudent[17].TextContent) ? priorityPosition : 0,
+
+                    PriorityPosition = currentStudent[2].TextContent == "1" ? priorityPosition : 0,
+
                     ID = currentStudent[1].TextContent,
                     AdditionalPoints = int.Parse(currentStudent[8].TextContent),
                     TotalPoints = int.Parse(currentStudent[7].TextContent),

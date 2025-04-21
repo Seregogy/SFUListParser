@@ -8,7 +8,7 @@
 
   <Identity
     Name="595f1fae-2aa6-4fdf-a82b-16e1525c021a"
-    Publisher="CN=delhi"
+    Publisher="CN=DevBacement"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="595f1fae-2aa6-4fdf-a82b-16e1525c021a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

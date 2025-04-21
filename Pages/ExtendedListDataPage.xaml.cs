@@ -31,7 +31,7 @@ namespace SFUListParser
             extendedListDataViewModel = ExtendedListDataViewModel.Init(competitionListData);
             await extendedListDataViewModel.ParseTableAsync();
         }
-        
+
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
             if (Frame.CanGoBack)
@@ -42,7 +42,7 @@ namespace SFUListParser
         }
 
         private void Page_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {            
+        {
             if (e.GetCurrentPoint(Frame).Properties.IsXButton1Pressed)
                 Frame.GoBack();
         }

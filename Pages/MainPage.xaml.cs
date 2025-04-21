@@ -1,7 +1,9 @@
 ﻿using SFUListParser.Pages;
 using SFUListParser.ViewModel;
-using System;
+using System.IO;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
@@ -14,7 +16,12 @@ namespace SFUListParser
         public MainPage()
         {
             InitializeComponent();
-            
+
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(Path.Combine(ApplicationData.Current.LocalFolder.Path, "config.json"));
+
+            Clipboard.SetContent(dataPackage);
+
             CompetitionListDataVM = MainPageViewModel.Init();
         }
 

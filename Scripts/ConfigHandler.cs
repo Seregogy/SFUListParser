@@ -2,6 +2,6 @@
 {
     public class ConfigHandler
     {
-        public static int ParseListLimit = 120;
+        public static int ParseListLimit = 500;
     }
 }

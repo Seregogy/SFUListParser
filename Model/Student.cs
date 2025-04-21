@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace SFUListParser.Model
 {
-    public class Student : INotifyPropertyChanged 
+    public class Student : INotifyPropertyChanged
     {
         private string id;
         private int position;

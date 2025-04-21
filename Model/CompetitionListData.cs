@@ -33,7 +33,7 @@ namespace SFUListParser.Model
             if (other.id != id) return false;
             if (other.name != name) return false;
             if (other.description != description)
-            if (other.link != link) return false;
+                if (other.link != link) return false;
 
             return true;
         }
