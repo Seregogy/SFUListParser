@@ -23,7 +23,7 @@
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
-    <AppxBundle>Always</AppxBundle>
+    <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
@@ -130,6 +130,7 @@
     <Compile Include="Components\CompetitionListDataComponent.xaml.cs">
       <DependentUpon>CompetitionListDataComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Model\ExtendedPageDataModel.cs" />
     <Compile Include="Model\StudentSource.cs" />
     <Compile Include="Pages\CompetitionListDataEditPage.xaml.cs">

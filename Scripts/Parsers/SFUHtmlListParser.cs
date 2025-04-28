@@ -3,7 +3,6 @@ using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using SFUListParser.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace SFUListParser.Scripts
 {
     public class SFUHtmlListParser
     {
-        public static async Task<List<Student>> ParseTableAsync(string link)
+        public static async Task<List<Student>> ParseTableAsync(string link, int parseLimit = -1)
         {
             HttpClient httpClient = new HttpClient();
             var html = await httpClient.GetStringAsync(new Uri(link));
@@ -23,11 +22,13 @@ namespace SFUListParser.Scripts
 
             int priorityPosition = 0;
             int parsedCount = 0;
+            int limit = parseLimit == -1 ? int.MaxValue : parseLimit;
+
             List<Student> students = new List<Student>();
+
             foreach (IElement table in angle.QuerySelectorAll("tr").ToList().Skip(13))
             {
-                if (parsedCount >= ConfigHandler.ParseListLimit)
-                    break;
+                if (parsedCount >= limit) break;
 
                 parsedCount++;
 

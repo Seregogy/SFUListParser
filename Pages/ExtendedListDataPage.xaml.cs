@@ -1,21 +1,23 @@
-﻿using Microsoft.Toolkit.Uwp;
-using SFUListParser.Model;
-using SFUListParser.Scripts;
+﻿using SFUListParser.Model;
 using SFUListParser.ViewModel;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace SFUListParser
 {
-    public sealed partial class ExtendedListDataPage : Page
+    public sealed partial class ExtendedListDataPage : Page, INotifyPropertyChanged
     {
         private ObservableCollection<Student> students = new ObservableCollection<Student>();
+        private Student SelectedStudent;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private CompetitionListData competitionListData { get; set; }
         private ExtendedListDataViewModel extendedListDataViewModel { get; set; }
@@ -37,18 +39,19 @@ namespace SFUListParser
             competitionListData = e.Parameter as CompetitionListData;
 
             extendedListDataViewModel = ExtendedListDataViewModel.Init(competitionListData);
-            //await extendedListDataViewModel.ParseTableAsync();
-
-            //var students = new IncrementalLoadingCollection<StudentSource, Student>(10);
-            //StudentsListView.ItemsSource = students;
 
             Task.Run(async () =>
             {
-                var result = await SFUHtmlListParser.ParseTableAsync(competitionListData.Link);
+                await extendedListDataViewModel.ParseTableAsync();
 
                 _ = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
-                    foreach (var item in result)
+                    SelectedStudent = extendedListDataViewModel.Students.Where(x => x.ID == competitionListData.Id).LastOrDefault();
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStudent)));
+
+                    StudentsListView.SelectedIndex = SelectedStudent.PositionIndex;
+
+                    foreach (var item in extendedListDataViewModel.Students)
                         students.Add(item);
                 });
             });

@@ -32,9 +32,17 @@ namespace SFUListParser.ViewModel
 
         public async Task ParseTableAsync()
         {
-            Students = new ObservableCollection<Student>(await SFUHtmlListParser.ParseTableAsync(currentListData.Link));
+            Students = new ObservableCollection<Student>(await SFUHtmlListParser.ParseTableAsync(currentListData.Link, currentListData.ParseLimit));
 
-            SelectedStudent = Students.Where(x => x.ID == currentListData.Id).LastOrDefault();
+            //try
+            //{
+            //    SelectedStudent = Students.Where(x => x.ID == currentListData.Id).LastOrDefault();
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    Debug.WriteLine(ex.Message);
+            //    Debug.WriteLine(ex.StackTrace);
+            //}
         }
 
         public async Task ParseTableIterable()

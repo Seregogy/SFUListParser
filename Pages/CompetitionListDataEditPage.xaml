@@ -2,12 +2,20 @@
     x:Class="SFUListParser.Pages.CompetitionListDataEditPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    
     xmlns:local="using:SFUListParser.Pages"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:converter="using:SFUListParser.Converters"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converter:StringToIntConverter x:Key="StringToInt"/>
+    </Page.Resources>
+    
     <Grid MinWidth="500" MaxWidth="600" Background="{StaticResource CardBackgroundFillColorDefaultBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="{StaticResource OverlayCornerRadius}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -15,15 +23,46 @@
         </Grid.RowDefinitions>
         
         <StackPanel Margin="24" Grid.Row="0" Spacing="16" MaxWidth="700">
-            <TextBox PlaceholderText="Аббревиатура" Header="Факультет" Text="{x:Bind currentCompetitionList.Name, Mode=TwoWay}"/>
-            <TextBox PlaceholderText="Короткое описание" Header="Описание" Text="{x:Bind currentCompetitionList.Description, Mode=TwoWay}"/>
-            <TextBox ui:TextBoxExtensions.Regex="^https://" PlaceholderText="https://..." Header="Ссылка на список" Text="{x:Bind currentCompetitionList.Link, Mode=TwoWay}"/>
-            <TextBox ui:TextBoxExtensions.Mask="999-999-999 99" Header="СНИЛС" Text="{x:Bind currentCompetitionList.Id, Mode=TwoWay}"/>
+            
+            <TextBox PlaceholderText="Аббревиатура" 
+                     Header="Факультет" 
+                     Text="{x:Bind currentCompetitionList.Name, Mode=TwoWay}"/>
+            
+            <TextBox PlaceholderText="Короткое описание" 
+                     Header="Описание" 
+                     Text="{x:Bind currentCompetitionList.Description, Mode=TwoWay}"/>
+            
+            <TextBox ui:TextBoxExtensions.Regex="^https://" 
+                     PlaceholderText="https://..." 
+                     Header="Ссылка на список" 
+                     Text="{x:Bind currentCompetitionList.Link, Mode=TwoWay}"/>
+            
+            <TextBox ui:TextBoxExtensions.Mask="999-999-999 99" 
+                     Header="СНИЛС" 
+                     Text="{x:Bind currentCompetitionList.Id, Mode=TwoWay}"/>
+
+            <muxc:NumberBox Header="Лимит парсинга" 
+                       Text="{x:Bind currentCompetitionList.ParseLimit, Mode=TwoWay, Converter={StaticResource StringToInt}}"/>
 
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Background="{StaticResource LayerFillColorDefaultBrush}">
-            <Button Content="Подтвердить" Style="{StaticResource AccentButtonStyle}" Margin="24" HorizontalAlignment="Left" VerticalAlignment="Center" Click="DeleteButtonClicked"/>
+        <StackPanel Grid.Row="1" 
+                    Padding="15"
+                    Spacing="15"
+                    Background="{StaticResource LayerFillColorDefaultBrush}">
+
+            <muxc:InfoBar x:Name="ValidationErrorInfoBar"
+                          IsOpen="False"
+                          Severity="Error"
+                          Title="Ошибка" 
+                          Message="Не заполнены обязательные поля: ссылка на список или аббревиатура"/>
+
+            <Button Content="Подтвердить" 
+                    Style="{StaticResource AccentButtonStyle}"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" 
+                    Click="CreateButtonClick"/>
+            
         </StackPanel>
     </Grid>
 </Page>
