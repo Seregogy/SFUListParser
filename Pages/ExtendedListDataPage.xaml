@@ -50,7 +50,8 @@
                         </RichTextBlock>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Место в списке" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
+                            <TextBlock Text="Место в списке" 
+                                       Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
                             <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.Position, Mode=OneWay}"/>
                         </StackPanel>
 
