@@ -1,5 +1,6 @@
 ﻿using SFUListParser.Pages;
 using SFUListParser.ViewModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
@@ -9,20 +10,22 @@ using Windows.UI.Xaml.Media.Animation;
 
 namespace SFUListParser
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
         private MainPageViewModel CompetitionListDataVM;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public MainPage()
         {
             InitializeComponent();
 
-            var dataPackage = new DataPackage();
-            dataPackage.SetText(Path.Combine(ApplicationData.Current.LocalFolder.Path, "config.json"));
+            Loaded += (x, y) =>
+            {
+                CompetitionListDataVM = MainPageViewModel.Init();
 
-            Clipboard.SetContent(dataPackage);
-
-            CompetitionListDataVM = MainPageViewModel.Init();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CompetitionListDataVM)));
+            };
         }
 
         private void MainGridView_ItemClick(object sender, ItemClickEventArgs e)

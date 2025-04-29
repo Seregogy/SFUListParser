@@ -19,13 +19,14 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <PackageCertificateThumbprint>A05E00EF6B3C64964B379E0E6FE7589F0D522B08</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>F56A6B19D646DAAF8A90019DDB1E63BB1E005571</PackageCertificateThumbprint>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Never</AppxBundle>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateKeyFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -119,6 +120,8 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -131,6 +134,7 @@
       <DependentUpon>CompetitionListDataComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\StringToIntConverter.cs" />
+    <Compile Include="Converters\VisibilityInverse.cs" />
     <Compile Include="Model\ExtendedPageDataModel.cs" />
     <Compile Include="Model\StudentSource.cs" />
     <Compile Include="Pages\CompetitionListDataEditPage.xaml.cs">
@@ -225,7 +229,10 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="Assets\Config.json" />
-    <None Include="Resources\config.json" />
+    <None Include="Resources\config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SFUListParser_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

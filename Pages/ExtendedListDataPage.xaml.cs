@@ -3,10 +3,11 @@ using SFUListParser.ViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -14,10 +15,22 @@ namespace SFUListParser
 {
     public sealed partial class ExtendedListDataPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private ObservableCollection<Student> students = new ObservableCollection<Student>();
         private Student SelectedStudent;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private Visibility isStudentDataLoaded = Visibility.Collapsed;
+        public Visibility IsStudentDataLoaded 
+        { 
+            get => isStudentDataLoaded; 
+            set 
+            { 
+                isStudentDataLoaded = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         private CompetitionListData competitionListData { get; set; }
         private ExtendedListDataViewModel extendedListDataViewModel { get; set; }
@@ -47,12 +60,17 @@ namespace SFUListParser
                 _ = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     SelectedStudent = extendedListDataViewModel.Students.Where(x => x.ID == competitionListData.Id).LastOrDefault();
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedStudent)));
-
-                    StudentsListView.SelectedIndex = SelectedStudent.PositionIndex;
+                    OnPropertyChanged(nameof(SelectedStudent));
 
                     foreach (var item in extendedListDataViewModel.Students)
                         students.Add(item);
+
+                    if (SelectedStudent != null)
+                    {
+                        StudentsListView.SelectedIndex = SelectedStudent.PositionIndex;
+
+                        IsStudentDataLoaded = Visibility.Visible;
+                    }
                 });
             });
         }
@@ -91,5 +109,8 @@ namespace SFUListParser
                 Frame.Navigate(typeof(MainPage));
             }
         }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

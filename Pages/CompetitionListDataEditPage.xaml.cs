@@ -51,18 +51,30 @@ namespace SFUListParser.Pages
 
         private void CreateButtonClick(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine((currentCompetitionList.Name, currentCompetitionList.Id));
-
-            if (currentCompetitionList.Name == null || currentCompetitionList.Link == null)
+            try
             {
-                ValidationErrorInfoBar.IsOpen = true;
+                Debug.WriteLine((currentCompetitionList.Name, currentCompetitionList.Id));
 
-                return;
+                if (currentCompetitionList.Name == null || currentCompetitionList.Link == null)
+                {
+                    ValidationErrorInfoBar.IsOpen = true;
+
+                    return;
+                }
+
+                CompetitionListDataVM.CompetitionLists.Add(currentCompetitionList);
+
+                Frame.Navigate(typeof(MainPage));
             }
-
-            CompetitionListDataVM.CompetitionLists.Add(currentCompetitionList);
-
-            Frame.Navigate(typeof(MainPage));
+            catch (Exception ex)
+            {
+                ContentDialog contentDialog = new ContentDialog()
+                {
+                    Name = "Ошибка",
+                    Title = $"{ex.Message} {ex.StackTrace}",
+                    PrimaryButtonText = "Ок"
+                };
+            }
         }
 
         private void OnPropertyChanged([CallerMemberName] string property = "") =>

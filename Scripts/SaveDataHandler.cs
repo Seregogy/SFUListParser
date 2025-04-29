@@ -1,38 +1,44 @@
-﻿using System.IO;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 
 namespace SFUListParser.Scripts
 {
     public class SaveDataHandler
     {
-        private static string path = Path.Combine(ApplicationData.Current.LocalFolder.Path, "config.json");
-
         private static SaveDataHandler instance;
 
         public static SaveDataHandler Init()
         {
             if (instance == null)
+            {
                 instance = new SaveDataHandler();
+            }
 
             return instance;
         }
 
-        public void SaveData(string data) =>
-            File.WriteAllText(path, data);
-
-        public void ClearData() =>
-            File.WriteAllText(path, string.Empty);
-
-        public string LoadData()
+        public async Task SaveData(string data)
         {
-            if (!File.Exists(path))
-            {
-                File.CreateText(path).Close();
-                File.WriteAllText(path, "[]");
-            }
+            await ApplicationData.Current.LocalFolder.WriteTextToFileAsync(data, "config.json");
+        }
 
 
-            return File.ReadAllText(path);
+        public async Task<string> LoadDataAsync()
+        {
+            var storageFolder = ApplicationData.Current.LocalFolder;
+
+            if (!await storageFolder.FileExistsAsync("config.json"))
+                await storageFolder.CreateFileAsync("config.json");
+
+            DataPackage package = new DataPackage();
+            package.SetText(storageFolder.Path.ToString());
+            Clipboard.SetContent(package);
+
+            return await storageFolder.ReadTextFromFileAsync("config.json");
         }
     }
 }

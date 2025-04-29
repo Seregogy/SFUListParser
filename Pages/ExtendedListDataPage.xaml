@@ -3,14 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SFUListParser"
-    xmlns:SFUParserModel="using:SFUListParser.Model"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    
+    xmlns:converters="using:SFUListParser.Converters"
+    xmlns:SFUParserModel="using:SFUListParser.Model"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converters:VisibilityInverse x:Key="VisibilityInverse"/>
+    </Page.Resources>
+    
     <ScrollViewer>
-        <StackPanel Margin="0 50" HorizontalAlignment="Center" MaxWidth="1700" Spacing="36">
+        <StackPanel Margin="0 50" HorizontalAlignment="Center" Width="1000" Spacing="36">
             <Grid CornerRadius="{StaticResource OverlayCornerRadius}" Padding="15" x:Name="LabelGrid" Height="300" MaxWidth="1700" Background="{StaticResource CardBackgroundFillColorDefaultBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120"/>
@@ -49,37 +57,64 @@
                             </Paragraph>
                         </RichTextBlock>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
                             <TextBlock Text="Место в списке" 
                                        Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.Position, Mode=OneWay}"/>
+                            
+                            <TextBlock Text="{x:Bind SelectedStudent.Position, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+                            
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
                             <TextBlock Text="Место (приоритет)" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.PriorityPosition, Mode=OneWay}"/>
+                            <TextBlock Text="{x:Bind SelectedStudent.PriorityPosition, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" >
+                        <StackPanel Orientation="Horizontal" 
+                                    Spacing="5">
                             <TextBlock Text="Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.TotalPoints, Mode=OneWay}"/>
+                            <TextBlock Text="{x:Bind SelectedStudent.TotalPoints, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
                             <TextBlock Text="Доп. Баллы" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.AdditionalPoints, Mode=OneWay}"/>
+                            <TextBlock Text="{x:Bind SelectedStudent.AdditionalPoints, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Spacing="5">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
                             <TextBlock Text="Приоритет" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock Margin="15 0 0 0" Text="{x:Bind SelectedStudent.Prioriry, Mode=OneWay}"/>
+                            <TextBlock Text="{x:Bind SelectedStudent.Prioriry, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="5">
                             <TextBlock Text="Высший приоритет" Foreground="{StaticResource TextFillColorSecondaryBrush}"/>
-                            <TextBlock x:Name="IsHighestPriorityText" Margin="15 0 0 0" Text="{x:Bind SelectedStudent.IsHighestPriority, Mode=OneWay}"/>
+                            
+                            <TextBlock x:Name="IsHighestPriorityText"
+                                       Text="{x:Bind SelectedStudent.IsHighestPriority, Mode=OneWay}"
+                                       Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay}"/>
+
+                            <labs:Shimmer Visibility="{x:Bind IsStudentDataLoaded, Mode=OneWay, Converter={StaticResource VisibilityInverse}}"/>
                         </StackPanel>
                     </StackPanel>
                     
@@ -95,7 +130,11 @@
                 </Button>
             </Grid>
 
-            <muxc:Expander CornerRadius="{StaticResource OverlayCornerRadius}" Header="Parsing history" HorizontalAlignment="Center" Width="1000">
+            <muxc:Expander CornerRadius="{StaticResource OverlayCornerRadius}" 
+                           Header="Parsing history" 
+                           HorizontalAlignment="Center" 
+                           Width="1000"
+                           Visibility="Collapsed">
                 <StackPanel>
                 </StackPanel>
             </muxc:Expander>
